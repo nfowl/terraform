@@ -17,6 +17,12 @@ resource "cloudflare_filter" "geoblock_filter" {
   zone_id    = cloudflare_zone.nfowler_dev.id
 }
 
+resource "cloudflare_filter" "ports_filter" {
+  expression = "(cf.edge.server_port ne 80 or cf.edge.server_port ne 443)"
+  paused     = false
+  zone_id    = cloudflare_zone.nfowler_dev.id
+}
+
 #Rules
 resource "cloudflare_firewall_rule" "verified_bot_rule" {
   action      = "block"
@@ -43,3 +49,10 @@ resource "cloudflare_firewall_rule" "geoblock_rule" {
   zone_id     = cloudflare_zone.nfowler_dev.id
 }
 
+resource "cloudflare_firewall_rule" "port_rule" {
+  action      = "block"
+  description = "Block all non-standard ports"
+  filter_id   = cloudflare_filter.ports_filter.id
+  paused      = false
+  zone_id     = cloudflare_zone.nfowler_dev.id
+}
