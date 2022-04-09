@@ -120,15 +120,6 @@ resource "cloudflare_record" "lidarr_cname" {
   zone_id = cloudflare_zone.nfowler_dev.id
 }
 
-resource "cloudflare_record" "longhorn_cname" {
-  name    = "longhorn"
-  proxied = true
-  ttl     = 1
-  type    = "CNAME"
-  value   = cloudflare_record.root_a.hostname
-  zone_id = cloudflare_zone.nfowler_dev.id
-}
-
 resource "cloudflare_record" "meruem_cname" {
   name    = "meruem"
   proxied = true
@@ -149,33 +140,6 @@ resource "cloudflare_record" "minio_cname" {
 
 resource "cloudflare_record" "nextcloud_cname" {
   name    = "nextcloud"
-  proxied = true
-  ttl     = 1
-  type    = "CNAME"
-  value   = cloudflare_record.root_a.hostname
-  zone_id = cloudflare_zone.nfowler_dev.id
-}
-
-resource "cloudflare_record" "plex_cname" {
-  name    = "plex"
-  proxied = true
-  ttl     = 1
-  type    = "CNAME"
-  value   = cloudflare_record.root_a.hostname
-  zone_id = cloudflare_zone.nfowler_dev.id
-}
-
-resource "cloudflare_record" "podinfo_cname" {
-  name    = "podinfo"
-  proxied = true
-  ttl     = 1
-  type    = "CNAME"
-  value   = cloudflare_record.root_a.hostname
-  zone_id = cloudflare_zone.nfowler_dev.id
-}
-
-resource "cloudflare_record" "qb_cname" {
-  name    = "qb"
   proxied = true
   ttl     = 1
   type    = "CNAME"
@@ -275,3 +239,4 @@ resource "cloudflare_record" "cloudflare_mail_vpf" {
   value   = "v=spf1 include:_spf.mx.cloudflare.net ~all"
   zone_id = cloudflare_zone.nfowler_dev.id
 }
+
