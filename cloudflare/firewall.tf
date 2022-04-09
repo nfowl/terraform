@@ -18,7 +18,7 @@ resource "cloudflare_filter" "geoblock_filter" {
 }
 
 resource "cloudflare_filter" "ports_filter" {
-  expression = "(cf.edge.server_port ne 80 or cf.edge.server_port ne 443)"
+  expression = "(cf.edge.server_port ne 80 and cf.edge.server_port ne 443)"
   paused     = false
   zone_id    = cloudflare_zone.nfowler_dev.id
 }
