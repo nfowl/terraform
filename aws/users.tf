@@ -1,6 +1,5 @@
 # Configures generic users to to access various resources
 
-
 resource "aws_iam_user" "backups_readwrite_user" {
   name = "cluster-backups-readwrite"
   tags = {
