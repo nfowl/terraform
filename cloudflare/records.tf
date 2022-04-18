@@ -200,6 +200,16 @@ resource "cloudflare_record" "unifi_cname" {
   zone_id = cloudflare_zone.nfowler_dev.id
 }
 
+# Dummy record to allow worker only paths to get routed correctly
+resource "cloudflare_record" "workers_a" {
+  name    = "workers"
+  proxied = true
+  ttl     = 1
+  type    = "A"
+  value   = "192.0.2.1"
+  zone_id = cloudflare_zone.nfowler_dev.id
+}
+
 resource "cloudflare_record" "www_cname" {
   name    = "www"
   proxied = true
