@@ -2,7 +2,6 @@ data "http" "ipv4" {
   url = "http://ipv4.icanhazip.com"
 }
 
-
 resource "cloudflare_record" "root_a" {
   name    = "nfowler.dev"
   proxied = true
@@ -174,6 +173,15 @@ resource "cloudflare_record" "sonarr_cname" {
   zone_id = cloudflare_zone.nfowler_dev.id
 }
 
+resource "cloudflare_record" "testing_cname" {
+  name    = "testing"
+  proxied = true
+  ttl     = 1
+  type    = "CNAME"
+  value   = cloudflare_record.root_a.hostname
+  zone_id = cloudflare_zone.nfowler_dev.id
+}
+
 resource "cloudflare_record" "transmission_cname" {
   name    = "transmission"
   proxied = true
@@ -239,4 +247,3 @@ resource "cloudflare_record" "cloudflare_mail_vpf" {
   value   = "v=spf1 include:_spf.mx.cloudflare.net ~all"
   zone_id = cloudflare_zone.nfowler_dev.id
 }
-

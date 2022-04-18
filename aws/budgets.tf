@@ -23,4 +23,3 @@ resource "aws_budgets_budget" "overall_budget" {
   }
 }
 
-
