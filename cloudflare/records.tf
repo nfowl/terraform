@@ -2,6 +2,11 @@ data "http" "ipv4" {
   url = "http://ipv4.icanhazip.com"
 }
 
+variable "worker_dns_records" {
+  type        = set(string)
+  description = "list of domains to make dummy dns records for"
+}
+
 resource "cloudflare_record" "root_a" {
   name    = "nfowler.dev"
   proxied = true
@@ -13,15 +18,6 @@ resource "cloudflare_record" "root_a" {
 
 resource "cloudflare_record" "alertmanager_cname" {
   name    = "alertmanager"
-  proxied = true
-  ttl     = 1
-  type    = "CNAME"
-  value   = cloudflare_record.root_a.hostname
-  zone_id = cloudflare_zone.nfowler_dev.id
-}
-
-resource "cloudflare_record" "auth_cname" {
-  name    = "auth"
   proxied = true
   ttl     = 1
   type    = "CNAME"
@@ -200,14 +196,15 @@ resource "cloudflare_record" "unifi_cname" {
   zone_id = cloudflare_zone.nfowler_dev.id
 }
 
-# Dummy record to allow worker only paths to get routed correctly
+# Dummy records to allow worker only paths to get routed correctly
 resource "cloudflare_record" "workers_a" {
-  name    = "workers"
-  proxied = true
-  ttl     = 1
-  type    = "A"
-  value   = "192.0.2.1"
-  zone_id = cloudflare_zone.nfowler_dev.id
+  for_each = var.worker_dns_records
+  name     = each.key
+  proxied  = true
+  ttl      = 1
+  type     = "A"
+  value    = "192.0.2.1"
+  zone_id  = cloudflare_zone.nfowler_dev.id
 }
 
 resource "cloudflare_record" "www_cname" {
