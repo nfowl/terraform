@@ -7,3 +7,9 @@ resource "aws_iam_user" "backups_readwrite_user" {
   }
 }
 
+resource "aws_iam_user" "general_storage_user" {
+  name = "generic-user"
+  tags = {
+    description = "User to interact with general storage"
+  }
+}

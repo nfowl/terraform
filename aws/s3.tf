@@ -56,3 +56,10 @@ resource "aws_iam_user_policy" "cluster_backups_bucket_readwrite" {
   policy = data.aws_iam_policy_document.cluster_backups_user_readwrite_doc.json
   user   = aws_iam_user.backups_readwrite_user.id
 }
+
+module "generic_bucket" {
+  source           = "./helpers/bucket"
+  bucket_name      = "nfowl-generic"
+  bucket_user_arn  = aws_iam_user.general_storage_user.arn
+  bucket_user_name = aws_iam_user.general_storage_user.id
+}
