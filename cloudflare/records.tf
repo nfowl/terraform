@@ -43,6 +43,15 @@ resource "cloudflare_record" "dashboard_cname" {
   zone_id = cloudflare_zone.nfowler_dev.id
 }
 
+resource "cloudflare_record" "files_cname" {
+  name    = "files"
+  proxied = true
+  ttl     = 1
+  type    = "CNAME"
+  value   = cloudflare_record.root_a.hostname
+  zone_id = cloudflare_zone.nfowler_dev.id
+}
+
 resource "cloudflare_record" "google_required_cname" {
   name    = "_domainconnect"
   proxied = true
