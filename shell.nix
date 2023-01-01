@@ -9,8 +9,9 @@ let
 in
 pkgs.mkShell {
   buildInputs = [
-    pkgs.terraform.withPlugins providers
+    (pkgs.terraform.withPlugins providers)
     pkgs.terraform-ls
+    pkgs.awscli2
     # Providers
     # pkgs.terraform-providers.cloudflare
     # pkgs.terraform-providers.aws
