@@ -13,3 +13,10 @@ resource "aws_iam_user" "general_storage_user" {
     description = "User to interact with general storage"
   }
 }
+
+resource "aws_iam_user" "minecraft" {
+  name = "minecraft"
+  tags = {
+    description = "Controls minecraft server"
+  }
+}

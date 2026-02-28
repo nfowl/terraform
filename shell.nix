@@ -8,6 +8,7 @@ let
   ];
 in
 pkgs.mkShell {
+  pkgs.config.allowUnfreePredicate = _: true;
   buildInputs = [
     (pkgs.terraform.withPlugins providers)
     pkgs.terraform-ls

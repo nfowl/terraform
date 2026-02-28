@@ -1,11 +1,6 @@
 resource "cloudflare_zone_settings_override" "nfowler_dev" {
   zone_id = cloudflare_zone.nfowler_dev.id
   settings {
-    minify {
-      css  = "on"
-      html = "on"
-      js   = "on"
-    }
     security_header {
       enabled            = false
       include_subdomains = false

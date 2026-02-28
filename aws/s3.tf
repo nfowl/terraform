@@ -63,3 +63,10 @@ module "generic_bucket" {
   bucket_user_arn  = aws_iam_user.general_storage_user.arn
   bucket_user_name = aws_iam_user.general_storage_user.id
 }
+
+module "minecraft_backups" {
+  source           = "./helpers/bucket"
+  bucket_name      = "nfowl-minecraft"
+  bucket_user_arn  = aws_iam_user.minecraft.arn
+  bucket_user_name = aws_iam_user.minecraft.id
+}
